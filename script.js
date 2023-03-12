@@ -67,11 +67,13 @@ function timeIsUp() {
 }
 
 function addPixelIntoGame(){
+    
     // Vérifier si la durée de 5 minutes est écoulée ou non
     const currentTime = new Date().getTime();
     const myVar = localStorage.getItem('myVar');
-
     let startTime=myVar
+
+
     if (startTime==0 || currentTime - startTime >= timeLimit) {
         alert("La durée limite de 5 minutes est écoulée !");
     }
@@ -90,14 +92,14 @@ function addPixelIntoGame(){
     const pixel = {
         x,
         y,
-        color: currentColorChoice
+        color: currentColorChoice,
     }
     
     const pixelRef = db.collection('pixel').doc(`${pixel.x}-${pixel.y}`)
     pixelRef.set(pixel, {merge : true})
     localStorage.setItem('myVar', currentTime);
 
-    }
+}
 
 
 
