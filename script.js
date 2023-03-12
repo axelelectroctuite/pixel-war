@@ -5,6 +5,12 @@ game.width = 1200
 game.height = 600
 const gridCellSize = 10 
  
+const date = new Date();
+const options = { timeZone: 'Europe/Paris' };
+const time = new Intl.DateTimeFormat('fr-FR', options).format(date);
+console.log(time); // affiche l'heure actuelle à Paris au format 'jj/mm/aaaa, hh:mm:ss'
+
+
 const timeLimit = 5 * 60 * 1000; // 5 minutes en millisecondes
 let startTime=0;
 
