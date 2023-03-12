@@ -4,7 +4,8 @@ const cursor = document.querySelector('#cursor')
 game.width = 1200
 game.height = 600
 const gridCellSize = 10 
- 
+
+
 const date = new Date();
 const options = { timeZone: 'Europe/Paris' };
 const time = new Intl.DateTimeFormat('fr-FR', options).format(date);
@@ -12,7 +13,9 @@ console.log(time); // affiche l'heure actuelle à Paris au format 'jj/mm/aaaa, h
 
 
 const timeLimit = 5 * 60 * 1000; // 5 minutes en millisecondes
-let startTime=0;
+const myVar = localStorage.getItem('myVar');
+
+let startTime=myVar
 
 
 const ctx = game.getContext('2d');
@@ -91,7 +94,9 @@ function addPixelIntoGame(){
     
     const pixelRef = db.collection('pixel').doc(`${pixel.x}-${pixel.y}`)
     pixelRef.set(pixel, {merge : true})
-    startTime=currentTime;
+    startTime = currentTime;
+    localStorage.setItem('myVar', currentTime);
+
     }
 
 
