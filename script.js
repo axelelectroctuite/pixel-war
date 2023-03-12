@@ -5,6 +5,8 @@ game.width = 1200
 game.height = 600
 const gridCellSize = 10 
  
+const timeLimit = 5 * 60 * 1000; // 5 minutes en millisecondes
+let startTime=0;
 
 
 const ctx = game.getContext('2d');
@@ -53,8 +55,20 @@ function createPixel(x, y, color){
     ctx.fillStyle = color
     ctx.fillRect(x, y, gridCellSize, gridCellSize)
 }
+function timeIsUp() {
+    alert("La durée limite de 5 minutes est écoulée !");
+}
 
 function addPixelIntoGame(){
+    // Vérifier si la durée de 5 minutes est écoulée ou non
+    const currentTime = new Date().getTime();
+    if (startTime==0 || currentTime - startTime >= timeLimit) {
+        alert("La durée limite de 5 minutes est écoulée !");
+    }
+    else{
+        return;
+    }
+    // Continuer à ajouter les pixels
     const x = cursor.offsetLeft
     const y =cursor.offsetTop- game.offsetTop
 
@@ -71,8 +85,12 @@ function addPixelIntoGame(){
     
     const pixelRef = db.collection('pixel').doc(`${pixel.x}-${pixel.y}`)
     pixelRef.set(pixel, {merge : true})
+    startTime=currentTime;
+    }
 
-}
+
+
+
 cursor.addEventListener('click',function(event){
     addPixelIntoGame()
 })  
@@ -111,7 +129,6 @@ game.addEventListener('mousemove', function(event){
     
 db.collection('pixel').onSnapshot(function (querySnapshot){
     querySnapshot.docChanges().forEach(function (change){
-        console.log(change.doc.data())
         const{x, y, color}=change.doc.data()
 
         createPixel(x, y, color)
