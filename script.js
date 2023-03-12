@@ -13,9 +13,7 @@ console.log(time); // affiche l'heure actuelle à Paris au format 'jj/mm/aaaa, h
 
 
 const timeLimit = 5 * 60 * 1000; // 5 minutes en millisecondes
-const myVar = sessionStorage.getItem('myVar');
 
-let startTime=myVar
 
 
 const ctx = game.getContext('2d');
@@ -71,6 +69,9 @@ function timeIsUp() {
 function addPixelIntoGame(){
     // Vérifier si la durée de 5 minutes est écoulée ou non
     const currentTime = new Date().getTime();
+    const myVar = sessionStorage.getItem('myVar');
+
+    let startTime=myVar
     if (startTime==0 || currentTime - startTime >= timeLimit) {
         alert("La durée limite de 5 minutes est écoulée !");
     }
@@ -94,7 +95,6 @@ function addPixelIntoGame(){
     
     const pixelRef = db.collection('pixel').doc(`${pixel.x}-${pixel.y}`)
     pixelRef.set(pixel, {merge : true})
-    startTime = currentTime;
     sessionStorage.setItem('myVar', currentTime);
 
     }
