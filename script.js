@@ -13,7 +13,7 @@ console.log(time); // affiche l'heure actuelle à Paris au format 'jj/mm/aaaa, h
 
 
 const timeLimit = 5 * 60 * 1000; // 5 minutes en millisecondes
-const myVar = localStorage.getItem('myVar');
+const myVar = sessionStorage.getItem('myVar');
 
 let startTime=myVar
 
@@ -95,7 +95,7 @@ function addPixelIntoGame(){
     const pixelRef = db.collection('pixel').doc(`${pixel.x}-${pixel.y}`)
     pixelRef.set(pixel, {merge : true})
     startTime = currentTime;
-    localStorage.setItem('myVar', currentTime);
+    sessionStorage.setItem('myVar', currentTime);
 
     }
 
